@@ -1,27 +1,34 @@
-# WeatherForecast
+# Angular Weather Forecast Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
+This Angular application provides weather forecasts for various cities.
 
-## Development server
+Application you can run with command
+npm start
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Prerequisites
 
-## Code scaffolding
+Make sure you have the following software installed on your machine:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Node.js (https://nodejs.org/)
+- npm (Node Package Manager)
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the repository or download the source code.
 
-## Running unit tests
+2. Open a terminal or command prompt and navigate to the project's root directory.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Install the project dependencies by running the following command:
 
-## Running end-to-end tests
+   npm install
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Configuration
 
-## Further help
+Obtain an API key from a weather service provider. This application uses the OpenWeatherMap API to fetch weather data. You can sign up for a free API key at https://openweathermap.org/.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Usage
+To start the application, run the following command:
+
+npm start
+
+The application will be served on http://localhost:4200/. Open this URL in your web browser to access the weather forecast application.
