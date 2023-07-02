@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { Observable, from } from 'rxjs';
+import { environment } from '../environment/environment.dev';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable, from } from 'rxjs';
 
 export class WeatherForecastService {
 
-  private apiKey = 'da24cc7aca15efc760df2211a80c876a';
+  private apiKey = environment.apiKey;
 
   constructor() { }
 
