@@ -11,6 +11,9 @@ import { Chart, registerables } from 'chart.js';
 export class WeatherForecastComponent {
   weatherData: WeatherData[] = [];
   weatherChart!: Chart;
+  cityName: string = '';
+  errorMessage: string = '';
+  showErrorMessage: Boolean = false;
 
   constructor(private weatherService: WeatherForecastService) {
     Chart.register(...registerables);
@@ -19,7 +22,7 @@ export class WeatherForecastComponent {
   fetchWeatherForecast(cityName: string): void {
     this.weatherService.getWeatherForecast(cityName).subscribe(
       (response) => {
-
+        this.showErrorMessage = false;
         this.weatherData = this.processWeatherForecastResponse(response);
         // Handle the response from the API
         console.log(response);
@@ -29,6 +32,8 @@ export class WeatherForecastComponent {
       (error) => {
         // Handle any error that occurred
         console.error('Error fetching weather forecast:', error);
+        this.errorMessage = 'Error fetching weather forecast';
+        this.showErrorMessage = true;
       }
     );
   }
@@ -59,11 +64,6 @@ export class WeatherForecastComponent {
     }
 
     return this.weatherData;
-  }
-
-  ngOnInit(): void {
-    const cityName = 'London'; // Replace with the desired city name
-    this.fetchWeatherForecast(cityName);
   }
 
   createWeatherChart(): void {
@@ -114,5 +114,9 @@ export class WeatherForecastComponent {
         },
       });
     }
+  }
+
+  showForecastClick() {
+    this.fetchWeatherForecast(this.cityName);
   }
 }
