@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { WeatherForecastService } from '../services/weather-forecast.service';
 import { WeatherData } from '../models/weather-data.model';
+import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-weather-forecast',
@@ -9,9 +10,10 @@ import { WeatherData } from '../models/weather-data.model';
 })
 export class WeatherForecastComponent {
   weatherData: WeatherData[] = [];
+  weatherChart!: Chart;
 
   constructor(private weatherService: WeatherForecastService) {
-
+    Chart.register(...registerables);
   }
 
   fetchWeatherForecast(cityName: string): void {
@@ -22,7 +24,7 @@ export class WeatherForecastComponent {
         // Handle the response from the API
         console.log(response);
         console.log(this.weatherData);
-
+        this.createWeatherChart();
       },
       (error) => {
         // Handle any error that occurred
@@ -62,5 +64,55 @@ export class WeatherForecastComponent {
   ngOnInit(): void {
     const cityName = 'London'; // Replace with the desired city name
     this.fetchWeatherForecast(cityName);
+  }
+
+  createWeatherChart(): void {
+    const chartData = this.weatherData.map((data) => data.temperature);
+    const chartLabels = this.weatherData.map((data) => data.date);
+
+    const canvas = document.getElementById('weatherChart') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+
+    if (this.weatherChart) {
+      this.weatherChart.destroy();
+    }
+
+    if (ctx) {
+
+      this.weatherChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: chartLabels,
+          datasets: [
+            {
+              label: 'Temperature',
+              data: chartData,
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Date',
+              },
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Temperature',
+              },
+            },
+          },
+        },
+      });
+    }
   }
 }
